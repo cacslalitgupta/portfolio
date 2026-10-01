@@ -6,6 +6,7 @@ export default defineConfig({
   server: {
     port: 5173,
     // In development, /api calls are forwarded to the Express server
-    proxy: { "/api": "http://localhost:6333" }
+    // proxy: { "/api": "http://localhost:6333" }
+    proxy: { "/api": "https://hotpink-lyrebird-795771.hostingersite.com" }
   }
 });
