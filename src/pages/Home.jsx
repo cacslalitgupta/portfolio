@@ -54,53 +54,26 @@ export default function Home({ site }) {
               </ul>
             </div>
 
-            {/* image div start */}
-            {/* <div className="animate-rise relative overflow-hidden rounded-3xl bg-primary p-6 text-onprimary shadow-card sm:p-8" style={{ animationDelay: ".12s" }}>
-              <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-accent/30" />
-              <div className="relative">
-                <div className="text-xs font-bold uppercase tracking-[0.18em] opacity-70">Why clients work with us</div>
-                <h2 className="mb-6 mt-3 text-2xl font-bold leading-snug sm:text-3xl">Numbers are only useful when they lead to better decisions.</h2>
-                {[[s.experience, "Years of experience"], [s.clients, "Clients supported"], [s.businesses, "Businesses advised"], [s.response_time, "Typical response time"]].map(([v, l]) => (
-                  <div key={l} className="flex items-center justify-between gap-4 border-t border-onprimary/15 py-3.5">
-                    <b className="font-display text-2xl sm:text-3xl">{v}</b>
-                    <span className="text-right text-sm opacity-75">{l}</span>
-                  </div>
-                ))}
-              </div>
-            </div> */}
-            {/* image div end */}
-
             <div
               className="animate-rise relative overflow-hidden rounded-3xl bg-primary p-6 text-onprimary shadow-card sm:p-8"
               style={{ animationDelay: ".12s" }}
             >
-              {/* Background Image */}
               <img
-                src="images/image1.webp"
-                // src="https://plus.unsplash.com/premium_photo-1661297460381-f75b8ae69a0f?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                src="images/photo2_lalitgupta.avif"
                 alt=""
                 className="absolute inset-0 h-full w-full object-cover"
               />
-
-              {/* Dark primary overlay */}
               <div className="absolute inset-0 bg-primary/10" />
-
-              {/* Extra subtle dark gradient for better text readability */}
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/35 to-primary/10" />
-
-              {/* Decorative circle */}
               <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-accent/30" />
 
-              {/* Content */}
               <div className="relative">
                 <div className="text-xs font-bold uppercase tracking-[0.18em] opacity-80">
                   Why clients work with us
                 </div>
-
                 <h2 className="mb-6 mt-3 max-w-2xl text-2xl font-bold leading-snug sm:text-3xl">
                   Numbers are only useful when they lead to better decisions.
                 </h2>
-
                 {[
                   [s.experience, "Years of experience"],
                   [s.clients, "Clients supported"],
@@ -111,18 +84,12 @@ export default function Home({ site }) {
                     key={l}
                     className="flex items-center justify-between gap-4 border-t border-onprimary/20 py-3.5"
                   >
-                    <b className="font-display text-2xl sm:text-3xl">
-                      {v}
-                    </b>
-
-                    <span className="text-right text-sm opacity-85">
-                      {l}
-                    </span>
+                    <b className="font-display text-2xl sm:text-3xl">{v}</b>
+                    <span className="text-right text-sm opacity-85">{l}</span>
                   </div>
                 ))}
               </div>
             </div>
-
           </div>
         </section>
 
@@ -142,42 +109,23 @@ export default function Home({ site }) {
         {/* ABOUT */}
         <section id="about" className="section">
           <div className="container-x grid items-center gap-10 lg:grid-cols-[.85fr_1.15fr] lg:gap-16">
-            {/* <div className="flex min-h-[320px] flex-col justify-end rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-7 text-onprimary sm:min-h-[420px] sm:p-9">
-              <div className="font-display text-6xl font-bold sm:text-7xl">₹</div>
-              <h3 className="mt-2 text-2xl font-bold sm:text-3xl">Built around your business.</h3>
-              <p className="mt-2 leading-relaxed opacity-80">Clear reporting. Timely compliance. Decisions backed by numbers.</p>
-            </div> */}
+            <div className="relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-7 text-onprimary sm:min-h-[420px] sm:p-9">
+              <img
+                src="images/photo_lalitgupta.avif"
+                alt=""
+                className="absolute inset-0 h-full w-full object-cover"
+              />
+              <div className="absolute inset-0 bg-primary/10" />
+              <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/35 to-transparent" />
 
-              <div className="relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-7 text-onprimary sm:min-h-[420px] sm:p-9">
-  
-                {/* Background Image */}
-                <img
-                  src="images/image2.webp"
-                  alt=""
-                  className="absolute inset-0 h-full w-full object-cover"
-                />
-
-                {/* Dark overlay */}
-                <div className="absolute inset-0 bg-primary/10" />
-
-                {/* Darker bottom gradient for text readability */}
-                <div className="absolute inset-0 bg-gradient-to-t from-primary/85 via-primary/35 to-transparent" />
-
-                {/* Content */}
-                <div className="relative">
-                  <div className="font-display text-6xl font-bold sm:text-7xl">
-                    ₹
-                  </div>
-
-                  <h3 className="mt-2 text-2xl font-bold sm:text-3xl">
-                    Built around your business.
-                  </h3>
-
-                  <p className="mt-2 max-w-xl leading-relaxed opacity-85">
-                    Clear reporting. Timely compliance. Decisions backed by numbers.
-                  </p>
-                </div>
+              <div className="relative">
+                <div className="font-display text-6xl font-bold sm:text-7xl">₹</div>
+                <h3 className="mt-2 text-2xl font-bold sm:text-3xl">Built around your business.</h3>
+                <p className="mt-2 max-w-xl leading-relaxed opacity-85">
+                  Clear reporting. Timely compliance. Decisions backed by numbers.
+                </p>
               </div>
+            </div>
 
             <div>
               <div className="eyebrow">About the firm</div>
@@ -192,17 +140,32 @@ export default function Home({ site }) {
           </div>
         </section>
 
-        {/* PROCESS */}
-        <section id="process" className="section bg-primary text-onprimary">
-          <div className="container-x">
+        {/* PROCESS — WITH BACKGROUND IMAGE + PRIMARY OVERLAY */}
+        <section id="process" className="section relative overflow-hidden bg-primary text-onprimary">
+          {/* Background image */}
+          <img
+            src="images/ca_firm.avif"
+            alt=""
+            className="absolute inset-0 h-full w-full object-cover"
+            aria-hidden="true"
+          />
+
+          {/* Primary color overlay — tune opacity as needed */}
+          <div className="absolute inset-0 bg-primary/60" aria-hidden="true" />
+
+          {/* Content */}
+          <div className="container-x relative z-10">
             <div className="max-w-2xl">
-              <div className="text-xs font-bold uppercase tracking-[0.18em] opacity-70">A simple process</div>
+              <div className="text-xs font-bold uppercase tracking-[0.18em] opacity-80">A simple process</div>
               <h2 className="mb-4 mt-2 text-3xl font-bold sm:text-4xl lg:text-5xl">Less chasing. More clarity.</h2>
               <p className="leading-relaxed opacity-75">A straightforward engagement model designed to keep your financial work organised.</p>
             </div>
             <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {process.map(([n, t, d]) => (
-                <div key={n} className="rounded-2xl border border-onprimary/15 bg-onprimary/5 p-6">
+                <div
+                  key={n}
+                  className="rounded-2xl border border-onprimary/15 bg-onprimary/5 p-6"
+                >
                   <div className="font-display font-bold text-accent">{n}</div>
                   <h3 className="mb-2 mt-7 text-xl font-bold">{t}</h3>
                   <p className="text-sm leading-relaxed opacity-70">{d}</p>
