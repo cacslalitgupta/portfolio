@@ -1,4 +1,6 @@
 import { createRoot } from "react-dom/client";
+import Lenis from "lenis";
+import { useEffect } from "react";
 import "./index.css";
 import { SiteProvider, useSite } from "./lib/site";
 import Home from "./pages/Home";
@@ -20,11 +22,41 @@ function Splash({ error, retry }) {
   );
 }
 
+function SmoothScroll() {
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      smoothWheel: true,
+      smoothTouch: false,
+    });
+
+    let animationFrame;
+    const raf = (time) => {
+      lenis.raf(time);
+      animationFrame = requestAnimationFrame(raf);
+    };
+
+    animationFrame = requestAnimationFrame(raf);
+
+    return () => {
+      cancelAnimationFrame(animationFrame);
+      lenis.destroy();
+    };
+  }, []);
+
+  return null;
+}
+
 function App() {
   const { site, error, reload } = useSite();
   const isAdmin = location.pathname.startsWith("/admin");
   if (!site) return <Splash error={error} retry={reload} />;
-  return isAdmin ? <Admin /> : <Home site={site} />;
+  return (
+    <>
+      <SmoothScroll />
+      {isAdmin ? <Admin /> : <Home site={site} />}
+    </>
+  );
 }
 
 createRoot(document.getElementById("root")).render(
