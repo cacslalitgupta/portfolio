@@ -65,7 +65,7 @@ export default function Home({ site }) {
               />
               <div className="absolute inset-0 bg-primary/10" />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/35 to-primary/10" />
-              <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-accent/30" />
+              {/* <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-accent/30" /> */}
 
               <div className="relative">
                 <div className="text-xs font-bold uppercase tracking-[0.18em] opacity-80">
