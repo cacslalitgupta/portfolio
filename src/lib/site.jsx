@@ -1,6 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { api } from "./api";
 import { buildVars } from "./palette";
+import { updateSeo } from "./seo";
 
 const Ctx = createContext(null);
 export const useSite = () => useContext(Ctx);
@@ -54,8 +55,8 @@ export function SiteProvider({ children }) {
   }, [isDark, primary, accent, siteMode]);
 
   useEffect(() => {
-    if (s?.firm_name) document.title = `${s.firm_name} — ${s.tagline || "Chartered Accountants"}`;
-  }, [s?.firm_name, s?.tagline]);
+    if (site) updateSeo(site);
+  }, [site]);
 
   const setMode = (m) => { // "light" | "dark" | "system" | "" (follow the site default)
     setUserMode(m);

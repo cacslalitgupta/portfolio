@@ -60,7 +60,7 @@ export default function Home({ site }) {
             >
               <img
                 src="images/photo2_lalitgupta.avif"
-                alt=""
+                alt={`${s.firm_name || "CA Lalit Gupta"} chartered accountant and business advisory professional`}
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-primary/10" />
@@ -112,7 +112,7 @@ export default function Home({ site }) {
             <div className="relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-7 text-onprimary sm:min-h-[420px] sm:p-9">
               <img
                 src="images/photo_lalitgupta.avif"
-                alt=""
+                alt={`${s.firm_name || "CA Lalit Gupta"} accounting and financial advisory office`}
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-primary/10" />
@@ -145,7 +145,7 @@ export default function Home({ site }) {
           {/* Background image */}
           <img
             src="images/ca_firm.avif"
-            alt=""
+            alt="Professional chartered accountant office and financial advisory workspace"
             className="absolute inset-0 h-full w-full object-cover"
             aria-hidden="true"
           />

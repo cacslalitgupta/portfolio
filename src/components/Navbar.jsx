@@ -40,7 +40,7 @@ export default function Navbar({ name }) {
         <div className="flex items-center gap-2">
           <ThemeToggle />
           <a href="#contact" className="btn btn-primary hidden sm:inline-flex">Talk to me <ArrowRight size={16} /></a>
-          <button className="btn btn-ghost btn-icon lg:hidden" onClick={() => setOpen(!open)} aria-label="Menu" aria-expanded={open}>
+          <button className="btn btn-ghost btn-icon lg:hidden" onClick={() => setOpen(!open)} aria-label={open ? "Close navigation menu" : "Open navigation menu"} aria-expanded={open}>
             {open ? <X size={20} /> : <Menu size={20} />}
           </button>
         </div>
