@@ -8,12 +8,6 @@ export const useSite = () => useContext(Ctx);
 
 const systemQuery = () => window.matchMedia("(prefers-color-scheme: dark)");
 
-/**
- * Loads site data and owns the theme:
- *  - palette + default mode come from the database (Admin → Appearance)
- *  - each visitor can override light/dark with the toggle (remembered in their browser)
- *  - `setPreview` lets the admin see palette changes live before saving
- */
 export function SiteProvider({ children }) {
   const [site, setSite] = useState(null);
   const [error, setError] = useState("");
