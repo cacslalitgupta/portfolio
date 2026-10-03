@@ -42,7 +42,7 @@ export default function ContactForm() {
 
       <div className="rounded-xl border border-line bg-canvas p-3.5">
         <div className="flex items-center justify-between gap-3">
-          <div><div className="text-xs font-bold uppercase tracking-wide text-muted">Bot protection</div><b className="font-display text-lg">{captcha?.question || "Loading…"}</b></div>
+          <div><div className="text-xs font-bold uppercase tracking-wide text-muted">Solve It</div><b className="font-display text-lg">{captcha?.question || "Loading…"}</b></div>
           <button type="button" className="btn btn-ghost btn-icon" onClick={loadCaptcha} aria-label="New CAPTCHA"><RefreshCw size={16} /></button>
         </div>
         <input required inputMode="numeric" className="input mt-3" value={form.captchaAnswer} onChange={set("captchaAnswer")} placeholder="Enter answer" />
