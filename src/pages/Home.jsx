@@ -3,6 +3,8 @@ import { ArrowRight, CheckCircle2, ChevronDown, Clock, Clock3, Mail, MapPin, Pho
 import Navbar from "../components/Navbar";
 import ServiceCard from "../components/ServiceCard";
 import ContactForm from "../components/ContactForm";
+import Calculators from "../components/Calculators";
+import WhatsAppButton from "../components/WhatsAppButton";
 
 function Head({ eyebrow, title, text, center }) {
   return (
@@ -175,6 +177,9 @@ export default function Home({ site }) {
           </div>
         </section>
 
+        {/* CALCULATORS */}
+        <Calculators />
+
         {/* TESTIMONIALS */}
         {testimonials.length > 0 && (
           <section id="reviews" className="section">
@@ -254,6 +259,8 @@ export default function Home({ site }) {
           <span className="flex items-center gap-4">Professional accounting &amp; business advisory</span>
         </div>
       </footer>
+
+      <WhatsAppButton number={s.whatsapp || s.phone} firm={s.firm_name} />
     </>
   );
 }

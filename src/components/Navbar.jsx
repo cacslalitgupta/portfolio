@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { ArrowRight, Menu, X } from "lucide-react";
 import ThemeToggle from "./ThemeToggle";
 
-const links = [["Services", "#services"], ["About", "#about"], ["Process", "#process"], ["Reviews", "#reviews"], ["FAQ", "#faq"], ["Contact", "#contact"]];
+const links = [["Services", "#services"], ["About", "#about"], ["Process", "#process"], ["Calculators", "#calculators"], ["Reviews", "#reviews"], ["FAQ", "#faq"], ["Contact", "#contact"]];
 
 export default function Navbar({ name }) {
   const [open, setOpen] = useState(false);

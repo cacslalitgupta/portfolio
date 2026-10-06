@@ -53,3 +53,13 @@
   .input { @apply w-full rounded-xl border border-line bg-surface px-3.5 py-2.5 text-sm text-ink outline-none transition placeholder:text-muted/60 focus:border-brand focus:ring-4 focus:ring-primary/10; }
   .chip { @apply inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-bold; }
 }
+/* WhatsApp floating button ripple */
+@keyframes wa-wave {
+  0%   { transform: scale(1);   opacity: .55; }
+  100% { transform: scale(2.1); opacity: 0; }
+}
+.wa-wave {
+  position: absolute; inset: 0; border-radius: 9999px; background: #25D366;
+  animation: wa-wave 2.4s ease-out infinite; pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) { .wa-wave { animation: none; opacity: 0; } }

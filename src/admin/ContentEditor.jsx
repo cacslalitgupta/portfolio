@@ -9,7 +9,7 @@ const groups = [
   { title: "Hero section", fields: [["hero_title", "Headline", "area"], ["hero_text", "Intro text", "area"]] },
   { title: "About section", fields: [["about_title", "Heading", "area"], ["about_text", "Text", "area"]] },
   { title: "Numbers", fields: [["experience", "Years of experience"], ["clients", "Clients supported"], ["businesses", "Businesses advised"], ["response_time", "Response time"]] },
-  { title: "Contact details", fields: [["phone", "Phone"], ["email", "Email"], ["address", "Address"], ["working_hours", "Working hours"]] }
+  { title: "Contact details", fields: [["phone", "Phone"], ["whatsapp", "WhatsApp number (with country code, digits only)"], ["email", "Email"], ["address", "Address"], ["working_hours", "Working hours"]] }
 ];
 const keys = groups.flatMap((g) => g.fields.map((f) => f[0]));
 
@@ -23,7 +23,13 @@ export default function ContentEditor() {
 
   const save = async (e) => {
     e.preventDefault(); setBusy(true);
-    try { await api.saveSettings(v); await reload(); toast("Website content saved"); }
+    try {
+      const saved = await api.saveSettings(v);
+      const missed = keys.filter((k) => saved && (saved[k] ?? "") !== v[k]);
+      await reload();
+      if (missed.length) toast(`Server did not save: ${missed.join(", ")}. Restart/redeploy the server with the latest code.`, "err");
+      else toast("Website content saved");
+    }
     catch (err) { toast(err.message, "err"); }
     setBusy(false);
   };
