@@ -1,10 +1,26 @@
-import { useState } from "react";
-import { ArrowRight, CheckCircle2, ChevronDown, Clock, Clock3, Mail, MapPin, Phone, ShieldCheck, Sparkles, Star } from "lucide-react";
+// src/pages/Home.jsx
+import { useEffect, useState } from "react";
+import { useLocation, Link } from "react-router-dom";
+import {
+  ArrowRight, CheckCircle2, ChevronDown, Clock, Clock3,
+  Mail, MapPin, Phone, ShieldCheck, Sparkles, Star
+} from "lucide-react";
 import Navbar from "../components/Navbar";
 import ServiceCard from "../components/ServiceCard";
 import ContactForm from "../components/ContactForm";
 import Calculators from "../components/Calculators";
 import WhatsAppButton from "../components/WhatsAppButton";
+
+// URL → section id map
+const ROUTE_TO_SECTION = {
+  "/services": "services",
+  "/about": "about",
+  "/process": "process",
+  "/reviews": "reviews",
+  "/faq": "faq",
+  "/contact": "contact",
+  "/tools": "calculators",
+};
 
 function Head({ eyebrow, title, text, center }) {
   return (
@@ -29,6 +45,19 @@ export default function Home({ site }) {
   const s = site.settings;
   const { services, testimonials, faqs } = site;
   const [openFaq, setOpenFaq] = useState(0);
+  const { pathname } = useLocation();
+
+  // Scroll to the correct section whenever the URL changes
+  useEffect(() => {
+    const id = ROUTE_TO_SECTION[pathname];
+    if (id) {
+      requestAnimationFrame(() => {
+        document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+      });
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+  }, [pathname]);
 
   return (
     <>
@@ -46,8 +75,8 @@ export default function Home({ site }) {
               <h1 className="mt-5 text-[2.35rem] font-bold leading-[1.05] tracking-tight sm:text-6xl lg:text-7xl">{s.hero_title}</h1>
               <p className="mt-5 max-w-xl text-base leading-relaxed text-muted sm:text-lg">{s.hero_text}</p>
               <div className="mt-7 flex flex-col gap-3 sm:flex-row">
-                <a href="#contact" className="btn btn-primary px-6 py-3.5">Book a consultation <ArrowRight size={17} /></a>
-                <a href="#services" className="btn btn-ghost px-6 py-3.5">Explore services</a>
+                <Link to="/contact" className="btn btn-primary px-6 py-3.5">Book a consultation <ArrowRight size={17} /></Link>
+                <Link to="/services" className="btn btn-ghost px-6 py-3.5">Explore services</Link>
               </div>
               <ul className="mt-8 flex flex-wrap gap-x-6 gap-y-3 text-sm font-semibold text-muted">
                 {[[CheckCircle2, "Practical advice"], [ShieldCheck, "Fully confidential"], [Clock3, "Year-round support"]].map(([I, t]) => (
@@ -67,7 +96,6 @@ export default function Home({ site }) {
               />
               <div className="absolute inset-0 bg-primary/10" />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/35 to-primary/10" />
-              {/* <div className="absolute -right-20 -top-20 h-60 w-60 rounded-full bg-accent/30" /> */}
 
               <div className="relative">
                 <div className="text-xs font-bold uppercase tracking-[0.18em] opacity-80">
@@ -142,20 +170,16 @@ export default function Home({ site }) {
           </div>
         </section>
 
-        {/* PROCESS — WITH BACKGROUND IMAGE + PRIMARY OVERLAY */}
+        {/* PROCESS */}
         <section id="process" className="section relative overflow-hidden bg-primary text-onprimary">
-          {/* Background image */}
           <img
             src="images/ca_firm.avif"
             alt="Professional chartered accountant office and financial advisory workspace"
             className="absolute inset-0 h-full w-full object-cover"
             aria-hidden="true"
           />
-
-          {/* Primary color overlay — tune opacity as needed */}
           <div className="absolute inset-0 bg-primary/60" aria-hidden="true" />
 
-          {/* Content */}
           <div className="container-x relative z-10">
             <div className="max-w-2xl">
               <div className="text-xs font-bold uppercase tracking-[0.18em] opacity-80">A simple process</div>
@@ -178,7 +202,9 @@ export default function Home({ site }) {
         </section>
 
         {/* CALCULATORS */}
-        <Calculators />
+        <div id="calculators">
+          <Calculators />
+        </div>
 
         {/* TESTIMONIALS */}
         {testimonials.length > 0 && (
