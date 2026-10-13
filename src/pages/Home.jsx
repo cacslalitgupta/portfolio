@@ -10,6 +10,7 @@ import ServiceCard from "../components/ServiceCard";
 import ContactForm from "../components/ContactForm";
 import Calculators from "../components/Calculators";
 import WhatsAppButton from "../components/WhatsAppButton";
+import SocialSidebar from "../components/SocialSidebar";
 
 // URL → section id map
 const ROUTE_TO_SECTION = {
@@ -61,6 +62,7 @@ export default function Home({ site }) {
 
   return (
     <>
+      <SocialSidebar />
       <Navbar name={s.firm_name} />
       <main>
         {/* HERO */}
