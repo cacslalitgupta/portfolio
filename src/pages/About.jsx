@@ -8,7 +8,7 @@ import PageHeader from "../components/PageHeader";
 import SocialSidebar from "../components/SocialSidebar";
 import WhatsAppButton from "../components/WhatsAppButton";
 
-const ICAI_MEMBERSHIP = "YOUR_ICAI_MEMBERSHIP_NUMBER"; // ← replace
+const ICAI_MEMBERSHIP = "CS-11023"; // ← replace
 
 const expertise = [
   "Income Tax Return Filing & Advisory",
@@ -89,10 +89,10 @@ export default function About({ site }) {
                   <dt className="text-xs font-bold uppercase tracking-wide text-muted">Firm</dt>
                   <dd className="mt-1 font-display font-bold">LG &amp; Associates</dd>
                 </div>
-                {/* <div className="rounded-xl border border-line bg-surface p-4">
+                <div className="rounded-xl border border-line bg-surface p-4">
                   <dt className="text-xs font-bold uppercase tracking-wide text-muted">Membership No.</dt>
                   <dd className="mt-1 font-display font-bold">{ICAI_MEMBERSHIP}</dd>
-                </div> */}
+                </div>
               </dl>
             </div>
           </div>
