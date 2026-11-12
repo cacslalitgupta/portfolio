@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     port: 5173,
     // In development, /api calls are forwarded to the Express server
-    // proxy: { "/api": "http://localhost:6333" }
-    proxy: { "/api": "https://api.calalitgupta.in" }
+    proxy: { "/api": "http://localhost:6333" }
+    // proxy: { "/api": "https://api.calalitgupta.in" }
   }
 });

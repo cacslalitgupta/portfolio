@@ -14,21 +14,6 @@ export const servicesConfig = {
   ]
 };
 
-export const testimonialsConfig = {
-  collection: "testimonials", title: "Testimonials", singular: "testimonial",
-  description: "Client reviews shown in the “Client stories” section.",
-  primaryKey: "name", secondaryKey: "quote",
-  blank: { name: "", role: "", quote: "", rating: 5, published: true, sort_order: 99 },
-  fields: [
-    { key: "name", label: "Client name" },
-    { key: "role", label: "Role / company", required: false },
-    { key: "quote", label: "Review", type: "textarea" },
-    { key: "rating", label: "Rating", type: "rating" },
-    { key: "sort_order", label: "Display order", type: "number" },
-    { key: "published", label: "Visibility", type: "checkbox", toggleLabel: "Visible on website" }
-  ]
-};
-
 export const faqsConfig = {
   collection: "faqs", title: "FAQs", singular: "FAQ",
   description: "Questions and answers shown in the FAQ accordion.",

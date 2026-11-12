@@ -11,15 +11,17 @@ const FIRM = {
   region: "West Bengal",
   postalCode: "734005",
   country: "IN",
-  latitude: 26.7072495,
-  longitude: 88.4219001,
+  latitude: 26.707250279621732,
+  longitude: 88.424475582686,
   sameAs: [
     "https://g.page/r/CcWW9FkiRUSkEBE/review",
-    // "https://www.facebook.com/lalit.gupta.58367",
-    // "https://in.linkedin.com/in/ca-lalit-gupta-9895497a",
+    "https://www.facebook.com/lalit.gupta.58367",
+    "https://in.linkedin.com/in/ca-lalit-gupta-9895497a",
     // "https://www.instagram.com/your-handle",
   ],
 };
+
+
 
 function upsertMeta(selector, attrs, content) {
   let el = document.head.querySelector(selector);

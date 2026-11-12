@@ -3,7 +3,7 @@ import { useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams, Link } from "react-router-dom";
 import {
   ExternalLink, Eye, EyeOff, HelpCircle, Inbox, LayoutDashboard,
-  LogOut, MessageSquareQuote, Palette, FileText, Briefcase, Lock
+  LogOut, Palette, FileText, Briefcase, Lock
 } from "lucide-react";
 import { api, clearToken, getToken, setToken } from "../lib/api";
 import { useSite } from "../lib/site";
@@ -14,7 +14,7 @@ import ContentEditor from "../admin/ContentEditor";
 import Appearance from "../admin/Appearance";
 import MessagesPanel from "../admin/MessagesPanel";
 import CollectionManager from "../admin/CollectionManager";
-import { faqsConfig, servicesConfig, testimonialsConfig } from "../admin/collections";
+import { faqsConfig, servicesConfig } from "../admin/collections";
 
 export default function Admin() {
   const [authed, setAuthed] = useState(!!getToken());
@@ -124,7 +124,6 @@ const NAV = [
   ["dashboard", "Dashboard", LayoutDashboard],
   ["content", "Site content", FileText],
   ["services", "Services", Briefcase],
-  ["testimonials", "Testimonials", MessageSquareQuote],
   ["faqs", "FAQs", HelpCircle],
   ["messages", "Enquiries", Inbox],
   ["appearance", "Appearance", Palette],
@@ -227,7 +226,6 @@ function Shell({ onLogout }) {
           {tab === "dashboard" && <Dashboard data={dash} go={go} />}
           {tab === "content" && <ContentEditor />}
           {tab === "services" && <CollectionManager config={servicesConfig} onChange={changed} />}
-          {tab === "testimonials" && <CollectionManager config={testimonialsConfig} onChange={changed} />}
           {tab === "faqs" && <CollectionManager config={faqsConfig} onChange={changed} />}
           {tab === "messages" && <MessagesPanel onChange={refresh} />}
           {tab === "appearance" && <Appearance />}

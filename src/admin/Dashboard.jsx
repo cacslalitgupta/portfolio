@@ -1,4 +1,5 @@
-import { ArrowRight, Briefcase, Database, HelpCircle, Inbox, MessageSquareQuote, Palette } from "lucide-react";
+// src/admin/Dashboard.jsx
+import { ArrowRight, Briefcase, Database, HelpCircle, Inbox, Palette } from "lucide-react";
 import { PageTitle } from "./ui";
 
 export default function Dashboard({ data, go }) {
@@ -6,14 +7,13 @@ export default function Dashboard({ data, go }) {
   const { stats, recent, db } = data;
   const cards = [
     ["Services", stats.services, Briefcase, "services"],
-    ["Testimonials", stats.testimonials, MessageSquareQuote, "testimonials"],
     ["FAQs", stats.faqs, HelpCircle, "faqs"],
-    ["New enquiries", stats.newMessages, Inbox, "messages"]
+    ["New enquiries", stats.newMessages, Inbox, "messages"],
   ];
   return (
     <>
       <PageTitle title="Dashboard" text="A quick overview of your website." />
-      <div className="grid grid-cols-2 gap-3 lg:grid-cols-4">
+      <div className="grid grid-cols-2 gap-3 lg:grid-cols-3">
         {cards.map(([label, n, I, tab]) => (
           <button key={label} onClick={() => go(tab)} className="card p-4 text-left transition hover:-translate-y-0.5 hover:shadow-card sm:p-5">
             <span className="grid h-10 w-10 place-items-center rounded-xl bg-soft text-brand"><I size={19} /></span>
