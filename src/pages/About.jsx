@@ -48,7 +48,7 @@ export default function About({ site }) {
             <div className="relative flex min-h-[380px] flex-col justify-end overflow-hidden rounded-3xl bg-primary p-7 text-onprimary sm:min-h-[460px] sm:p-9">
               <img
                 src="/images/photo_lalitgupta.avif"
-                alt="CA Lalit Gupta, Chartered Accountant and founder of LG & Associates, Siliguri, Siliguri"
+                alt="CA Lalit Gupta, Chartered Accountant and founder of LG & Associates, Siliguri"
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-primary/90 via-primary/40 to-transparent" />

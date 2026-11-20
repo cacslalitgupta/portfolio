@@ -1,29 +1,7 @@
-const SITE_URL = "https://calalitgupta.in";
+// src/lib/seo.js
+import { FIRM, SEO_BY_PATH, FALLBACK_SEO, SITE_URL } from "./seoConfig";
 
-const FIRM = {
-  name: "LG & Associates",
-  legalName: "LG & Associates",
-  phone: "+91-98320-93139",
-  phoneIntl: "+919832093139",
-  email: "cacslalitgupta@gmail.com",
-  streetAddress: "Nehru Road, Ward 8, Khalpara",
-  locality: "Siliguri",
-  region: "West Bengal",
-  postalCode: "734005",
-  country: "IN",
-  latitude: 26.707250279621732,
-  longitude: 88.424475582686,
-  sameAs: [
-    "https://g.page/r/CcWW9FkiRUSkEBE/review",
-    "https://www.facebook.com/lalit.gupta.58367",
-    "https://in.linkedin.com/in/ca-lalit-gupta-9895497a",
-    // "https://www.instagram.com/your-handle",
-  ],
-};
-
-
-
-function upsertMeta(selector, attrs, content) {
+export function upsertMeta(selector, attrs, content) {
   let el = document.head.querySelector(selector);
   if (!el) {
     el = document.createElement("meta");
@@ -33,7 +11,7 @@ function upsertMeta(selector, attrs, content) {
   el.setAttribute("content", content || "");
 }
 
-function upsertLink(rel, href) {
+export function upsertLink(rel, href) {
   let el = document.head.querySelector(`link[rel="${rel}"]`);
   if (!el) {
     el = document.createElement("link");
@@ -43,8 +21,12 @@ function upsertLink(rel, href) {
   el.setAttribute("href", href);
 }
 
-function upsertJsonLd(id, data) {
+export function upsertJsonLd(id, data) {
   let el = document.head.querySelector(`script[data-seo-id="${id}"]`);
+  if (!data) {
+    if (el) el.remove();
+    return;
+  }
   if (!el) {
     el = document.createElement("script");
     el.type = "application/ld+json";
@@ -56,26 +38,39 @@ function upsertJsonLd(id, data) {
 
 const clean = (v) => String(v || "").replace(/\s+/g, " ").trim();
 
-export function updateSeo(site) {
+export function updateSeo(site, pathname = window.location.pathname) {
   const s = site?.settings || {};
   const services = Array.isArray(site?.services) ? site.services : [];
   const faqs = Array.isArray(site?.faqs) ? site.faqs : [];
   const firm = clean(s.firm_name) || FIRM.name;
-  const tagline = clean(s.tagline) || "Chartered Accountants";
-  const title = `${firm} | CA Lalit Gupta | Chartered Accountants, Siliguri`;
+  const tagline = clean(s.tagline) || "Chartered Accountants in Siliguri";
+
+  const isAdmin = pathname.startsWith("/admin");
+  const normalizedPath = pathname === "/" ? "/" : pathname.replace(/\/+$/, "");
+  const routeCfg = SEO_BY_PATH[normalizedPath] || FALLBACK_SEO;
+
+  const title = isAdmin ? "Admin Dashboard | CA Lalit Gupta" : routeCfg.title;
   const description =
-    clean(s.meta_description) ||
-    `${firm} (CA Lalit Gupta) is a chartered accountancy firm in Siliguri, West Bengal, providing income tax, GST, audit, accounting and business advisory services.`;
-  const isAdmin = window.location.pathname.startsWith("/admin");
-  const canonical = SITE_URL + (isAdmin ? "/admin" : "/");
+    normalizedPath === "/" && clean(s.meta_description)
+      ? clean(s.meta_description)
+      : routeCfg.description;
+  const keywords = routeCfg.keywords || FALLBACK_SEO.keywords;
+  const canonical = SITE_URL + (isAdmin ? "/admin" : normalizedPath);
   const image = `${SITE_URL}/og-image.png`;
 
   document.documentElement.lang = "en-IN";
-  document.title = isAdmin ? "Admin Dashboard | CA Lalit Gupta" : title;
+  document.title = title;
   upsertLink("canonical", canonical);
 
   upsertMeta('meta[name="description"]', { name: "description" }, description.slice(0, 160));
-  upsertMeta('meta[name="robots"]', { name: "robots" }, isAdmin ? "noindex, nofollow, noarchive" : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1");
+  upsertMeta('meta[name="keywords"]', { name: "keywords" }, keywords);
+  upsertMeta(
+    'meta[name="robots"]',
+    { name: "robots" },
+    isAdmin
+      ? "noindex, nofollow, noarchive"
+      : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
+  );
   upsertMeta('meta[name="author"]', { name: "author" }, "CA Lalit Gupta");
   upsertMeta('meta[name="theme-color"]', { name: "theme-color" }, s.theme_primary || "#0b3558");
   upsertMeta('meta[name="geo.region"]', { name: "geo.region" }, "IN-WB");
@@ -90,7 +85,11 @@ export function updateSeo(site) {
   upsertMeta('meta[property="og:image"]', { property: "og:image" }, image);
   upsertMeta('meta[property="og:image:width"]', { property: "og:image:width" }, "1200");
   upsertMeta('meta[property="og:image:height"]', { property: "og:image:height" }, "630");
-  upsertMeta('meta[property="og:image:alt"]', { property: "og:image:alt" }, `${firm} — Chartered Accountants, Siliguri`);
+  upsertMeta(
+    'meta[property="og:image:alt"]',
+    { property: "og:image:alt" },
+    `${firm} — Chartered Accountants & CA Firm in Siliguri`
+  );
   upsertMeta('meta[property="og:site_name"]', { property: "og:site_name" }, firm);
   upsertMeta('meta[property="og:locale"]', { property: "og:locale" }, "en_IN");
 
@@ -99,18 +98,24 @@ export function updateSeo(site) {
   upsertMeta('meta[name="twitter:description"]', { name: "twitter:description" }, description);
   upsertMeta('meta[name="twitter:image"]', { name: "twitter:image" }, image);
 
-  if (isAdmin) return;
+  if (isAdmin) {
+    upsertJsonLd("website-graph", null);
+    return;
+  }
 
   const serviceItems = services
-    .filter((x) => x?.published !== false)
+    .filter((x) => x?.published !== false && x?.title)
     .map((x) => ({
       "@type": "Service",
       name: clean(x.title),
+      serviceType: "Chartered Accountancy Service",
       description: clean(x.short_description),
       provider: { "@id": `${SITE_URL}/#firm` },
-      areaServed: { "@type": "City", name: "Siliguri" },
-    }))
-    .filter((x) => x.name);
+      areaServed: [
+        { "@type": "City", name: "Siliguri" },
+        { "@type": "State", name: "West Bengal" },
+      ],
+    }));
 
   const faqItems = faqs
     .filter((x) => x?.published !== false && x?.question && x?.answer)
@@ -123,15 +128,16 @@ export function updateSeo(site) {
   const firmSchema = {
     "@type": ["AccountingService", "LocalBusiness", "ProfessionalService"],
     "@id": `${SITE_URL}/#firm`,
-    name: FIRM.name,
+    name: firm,
+    alternateName: FIRM.alternateName,
     legalName: FIRM.legalName,
     url: SITE_URL,
     image,
     logo: `${SITE_URL}/favicon.svg`,
-    description,
+    description: FALLBACK_SEO.description,
     slogan: tagline,
-    telephone: FIRM.phone,
-    email: FIRM.email,
+    telephone: clean(s.phone) || FIRM.phone,
+    email: clean(s.email) || FIRM.email,
     priceRange: "₹₹",
     currenciesAccepted: "INR",
     paymentAccepted: "Cash, UPI, Bank Transfer, Cheque",
@@ -152,6 +158,8 @@ export function updateSeo(site) {
       { "@type": "City", name: "Siliguri" },
       { "@type": "City", name: "Darjeeling" },
       { "@type": "City", name: "Jalpaiguri" },
+      { "@type": "City", name: "Kalimpong" },
+      { "@type": "City", name: "Cooch Behar" },
       { "@type": "State", name: "West Bengal" },
       { "@type": "Country", name: "India" },
     ],
@@ -165,8 +173,10 @@ export function updateSeo(site) {
     ],
     founder: { "@id": `${SITE_URL}/#lalit-gupta` },
     employee: { "@id": `${SITE_URL}/#lalit-gupta` },
-    sameAs: FIRM.sameAs.length ? FIRM.sameAs : undefined,
+    sameAs: FIRM.sameAs,
     knowsAbout: [
+      "Chartered Accountancy",
+      "CA Services in Siliguri",
       "Income Tax Return Filing",
       "Goods and Services Tax",
       "Statutory Audit",
@@ -177,8 +187,11 @@ export function updateSeo(site) {
     ],
     hasOfferCatalog: {
       "@type": "OfferCatalog",
-      name: "Chartered Accountancy Services",
-      itemListElement: serviceItems,
+      name: "CA Services in Siliguri",
+      itemListElement: serviceItems.map((srv) => ({
+        "@type": "Offer",
+        itemOffered: srv,
+      })),
     },
   };
 
@@ -186,16 +199,19 @@ export function updateSeo(site) {
     "@type": "Person",
     "@id": `${SITE_URL}/#lalit-gupta`,
     name: "CA Lalit Gupta",
+    alternateName: ["Lalit Gupta", "CA Lalit Gupta Siliguri"],
     givenName: "Lalit",
     familyName: "Gupta",
     jobTitle: "Chartered Accountant",
     worksFor: { "@id": `${SITE_URL}/#firm` },
-    // Add once you have it verified in the footer too:
-    // identifier: { "@type": "PropertyValue", propertyID: "ICAI Membership No.", value: "XXXXXXXX" },
-    memberOf: { "@type": "Organization", name: "Institute of Chartered Accountants of India", alternateName: "ICAI" },
-    url: SITE_URL,
+    memberOf: {
+      "@type": "Organization",
+      name: "Institute of Chartered Accountants of India",
+      alternateName: "ICAI",
+    },
+    url: `${SITE_URL}/about`,
     image: `${SITE_URL}/images/photo_lalitgupta.avif`,
-    sameAs: FIRM.sameAs.length ? FIRM.sameAs : undefined,
+    sameAs: FIRM.sameAs,
     knowsAbout: ["Income Tax", "GST", "Audit", "Accounting", "Business Advisory"],
   };
 
@@ -203,14 +219,45 @@ export function updateSeo(site) {
     "@type": "WebSite",
     "@id": `${SITE_URL}/#website`,
     url: SITE_URL,
-    name: FIRM.name,
-    description,
+    name: firm,
+    alternateName: "CA Lalit Gupta — CA Firm in Siliguri",
+    description: FALLBACK_SEO.description,
     publisher: { "@id": `${SITE_URL}/#firm` },
     inLanguage: "en-IN",
   };
 
-  const graph = [firmSchema, personSchema, websiteSchema, ...serviceItems];
-  if (faqItems.length) graph.push({ "@type": "FAQPage", mainEntity: faqItems });
+  const webPageSchema = {
+    "@type": "WebPage",
+    "@id": `${canonical}#webpage`,
+    url: canonical,
+    name: title,
+    description,
+    isPartOf: { "@id": `${SITE_URL}/#website` },
+    about: { "@id": `${SITE_URL}/#firm` },
+    inLanguage: "en-IN",
+  };
+
+  const graph = [firmSchema, personSchema, websiteSchema, webPageSchema];
+
+  if (routeCfg.breadcrumbs?.length) {
+    graph.push({
+      "@type": "BreadcrumbList",
+      itemListElement: routeCfg.breadcrumbs.map((b, idx) => ({
+        "@type": "ListItem",
+        position: idx + 1,
+        name: b.name,
+        item: SITE_URL + b.path,
+      })),
+    });
+  }
+
+  // Only attach FAQPage schema on routes where FAQs are visibly rendered on the page
+  if ((normalizedPath === "/" || normalizedPath === "/faq") && faqItems.length) {
+    graph.push({
+      "@type": "FAQPage",
+      mainEntity: normalizedPath === "/" ? faqItems.slice(0, 4) : faqItems,
+    });
+  }
 
   upsertJsonLd("website-graph", { "@context": "https://schema.org", "@graph": graph });
 }

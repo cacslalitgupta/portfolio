@@ -1,3 +1,4 @@
+// src/lib/site.jsx
 import { createContext, useCallback, useContext, useEffect, useMemo, useState } from "react";
 import { api } from "./api";
 import { buildVars } from "./palette";
@@ -8,14 +9,85 @@ export const useSite = () => useContext(Ctx);
 
 const systemQuery = () => window.matchMedia("(prefers-color-scheme: dark)");
 
-/**
- * Loads site data and owns the theme:
- *  - palette + default mode come from the database (Admin → Appearance)
- *  - each visitor can override light/dark with the toggle (remembered in their browser)
- *  - `setPreview` lets the admin see palette changes live before saving
- */
+// Instant fallback content so bots and first-time visitors never hit an empty spinner
+// while api.calalitgupta.in wakes up; live API data seamlessly hydrates right after.
+const DEFAULT_SITE = {
+  settings: {
+    firm_name: "LG & Associates",
+    tagline: "Chartered Accountants & CA Firm in Siliguri",
+    hero_title: "LG & Associates — Chartered Accountants in Siliguri",
+    hero_text:
+      "Led by CA Lalit Gupta, our CA firm in Siliguri delivers dependable income tax, GST, audit, accounting and business advisory services for individuals and businesses across Siliguri and North Bengal.",
+    about_title: "LG & Associates — Trusted Chartered Accountants in Siliguri",
+    about_text:
+      "Founded by CA Lalit Gupta, LG & Associates is a Siliguri CA firm located at Khalpara, serving traders, wholesalers, professionals, startups and corporates across Sevoke Road, Hill Cart Road, Pradhan Nagar, Matigara and North Bengal.",
+    address: "Nehru Road, Ward 8, Khalpara, Siliguri, West Bengal 734005",
+    phone: "+91-98320-93139",
+    whatsapp: "+919832093139",
+    email: "cacslalitgupta@gmail.com",
+    working_hours: "Mon – Sat: 10:00 AM – 7:00 PM",
+    theme_primary: "#0b3558",
+    theme_accent: "#b18a3b",
+    theme_mode: "system",
+  },
+  services: [
+    {
+      id: "itr",
+      title: "Income Tax & ITR",
+      short_description: "Income tax return filing, tax planning, capital gains and assessment advisory in Siliguri.",
+      published: true,
+    },
+    {
+      id: "gst",
+      title: "GST Services",
+      short_description: "GST registration, GSTR-1/3B/9 filing, reconciliation, notices and GST compliance in Siliguri.",
+      published: true,
+    },
+    {
+      id: "audit",
+      title: "Audit & Assurance",
+      short_description: "Statutory audit, tax audit under Section 44AB, internal audit and financial verification.",
+      published: true,
+    },
+    {
+      id: "accounting",
+      title: "Accounting & Bookkeeping",
+      short_description: "Structured bookkeeping, financial statement preparation and MIS reporting for businesses.",
+      published: true,
+    },
+    {
+      id: "tds",
+      title: "TDS & TCS",
+      short_description: "Quarterly TDS/TCS return filing, challan compliance and Form 16/16A issuance.",
+      published: true,
+    },
+    {
+      id: "roc",
+      title: "Company & LLP Compliance",
+      short_description: "Company incorporation, LLP registration, ROC annual filings and corporate compliance.",
+      published: true,
+    },
+  ],
+  faqs: [
+    {
+      id: "faq-1",
+      question: "What CA services does LG & Associates offer in Siliguri?",
+      answer:
+        "LG & Associates (CA Lalit Gupta) provides income tax return filing, GST registration and compliance, statutory and tax audits, bookkeeping, TDS/TCS compliance, company/LLP registration and business advisory in Siliguri and across West Bengal.",
+      published: true,
+    },
+    {
+      id: "faq-2",
+      question: "Where is CA Lalit Gupta's office located in Siliguri?",
+      answer:
+        "Our office is located at Nehru Road, Ward 8, Khalpara, Siliguri, West Bengal 734005, easily accessible from Sevoke Road, Hill Cart Road and SF Road.",
+      published: true,
+    },
+  ],
+};
+
 export function SiteProvider({ children }) {
-  const [site, setSite] = useState(null);
+  const [site, setSite] = useState(DEFAULT_SITE);
   const [error, setError] = useState("");
   const [userMode, setUserMode] = useState(() => localStorage.getItem("ca_mode") || "");
   const [systemDark, setSystemDark] = useState(() => systemQuery().matches);
@@ -23,9 +95,20 @@ export function SiteProvider({ children }) {
 
   const reload = useCallback(() => {
     setError("");
-    return api.site().then(setSite).catch((e) => setError(e.message));
+    return api
+      .site()
+      .then((data) => {
+        if (data && data.settings) setSite(data);
+      })
+      .catch((e) => {
+        // Keep DEFAULT_SITE rendered instead of breaking public pages on cold API starts
+        if (window.location.pathname.startsWith("/admin")) setError(e.message);
+      });
   }, []);
-  useEffect(() => { reload(); }, [reload]);
+
+  useEffect(() => {
+    reload();
+  }, [reload]);
 
   useEffect(() => {
     const mq = systemQuery();
@@ -50,7 +133,8 @@ export function SiteProvider({ children }) {
     for (const k in vars) root.style.setProperty(k, vars[k]);
     localStorage.setItem("ca_vars", JSON.stringify({ light, dark }));
     localStorage.setItem("ca_site_mode", siteMode);
-    document.querySelector('meta[name="theme-color"]')
+    document
+      .querySelector('meta[name="theme-color"]')
       ?.setAttribute("content", `rgb(${vars["--primary"].split(" ").join(",")})`);
   }, [isDark, primary, accent, siteMode]);
 
@@ -58,9 +142,10 @@ export function SiteProvider({ children }) {
     if (site) updateSeo(site);
   }, [site]);
 
-  const setMode = (m) => { // "light" | "dark" | "system" | "" (follow the site default)
+  const setMode = (m) => {
     setUserMode(m);
-    if (m) localStorage.setItem("ca_mode", m); else localStorage.removeItem("ca_mode");
+    if (m) localStorage.setItem("ca_mode", m);
+    else localStorage.removeItem("ca_mode");
   };
   const toggle = () => setMode(isDark ? "light" : "dark");
 
