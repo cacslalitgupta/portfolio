@@ -23,7 +23,7 @@ export default function Reviews({ site }) {
       <main>
         <PageHeader
           eyebrow="Feedback"
-          title="Client feedback and reviews"
+          title="Client feedback and Google reviews"
           description="We value feedback from every client. Genuine reviews from real clients are available on our Google Business Profile."
           breadcrumbs={[{ label: "Feedback" }]}
         />

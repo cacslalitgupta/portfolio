@@ -83,6 +83,8 @@ export default function Home({ site }) {
                 src="/images/photo2_lalitgupta.avif"
                 alt={`${s.firm_name || "LG & Associates"} chartered accountant`}
                 className="absolute inset-0 h-full w-full object-cover"
+                fetchpriority="high"
+                decoding="async"
               />
               <div className="absolute inset-0 bg-primary/10" />
               <div className="absolute inset-0 bg-gradient-to-r from-primary/70 via-primary/35 to-primary/10" />
@@ -139,7 +141,9 @@ export default function Home({ site }) {
             <div className="relative flex min-h-[320px] flex-col justify-end overflow-hidden rounded-3xl bg-gradient-to-br from-primary via-primary to-accent p-7 text-onprimary sm:min-h-[420px] sm:p-9">
               <img
                 src="/images/photo_lalitgupta.avif"
-                alt={`${s.firm_name || "LG & Associates"} chartered accountant`}
+                loading="lazy"
+                decoding="async"
+                alt={`CA Lalit Gupta, chartered accountant at ${s.firm_name || "LG & Associates"}, Siliguri`}
                 className="absolute inset-0 h-full w-full object-cover"
               />
               <div className="absolute inset-0 bg-primary/10" />
@@ -177,8 +181,10 @@ export default function Home({ site }) {
         <section className="section relative overflow-hidden bg-primary text-onprimary">
           <img
             src="/images/ca_firm.avif"
-            alt="Professional chartered accountant office and financial advisory workspace"
+            alt=""
             className="absolute inset-0 h-full w-full object-cover"
+            loading="lazy"
+            decoding="async"
             aria-hidden="true"
           />
           <div className="absolute inset-0 bg-primary/60" aria-hidden="true" />

@@ -9,27 +9,6 @@ import ServiceCard from "../components/ServiceCard";
 import SocialSidebar from "../components/SocialSidebar";
 import WhatsAppButton from "../components/WhatsAppButton";
 
-// Per-service URLs — matches your master plan §6.
-// When you build each page, the slug here will route to it.
-// Until then, ServiceCard falls back to #contact for unpublished services.
-const SERVICE_SLUGS = {
-  "Income Tax & ITR": "income-tax-consultancy",
-  "GST Services": "gst-consultancy",
-  "Accounting & Bookkeeping": "accounting-bookkeeping",
-  "Audit & Assurance": "audit-assurance",
-  "TDS & TCS": "tds-tcs",
-  "Company & LLP Compliance": "business-registration",
-  "Business Advisory": "business-advisory",
-  "Payroll & Compliance": "payroll-compliance",
-};
-
-// Services that actually have a dedicated page live.
-// Add to this set as you build each page.
-const LIVE_SERVICE_PAGES = new Set([
-  // "gst-consultancy",
-  // "income-tax-consultancy",
-]);
-
 const serviceFaqs = [
   {
     q: "Which documents do I need for GST registration?",
@@ -49,16 +28,6 @@ export default function Services({ site }) {
   const s = site.settings;
   const { services } = site;
 
-  // Enrich each service with a slug + whether its page exists.
-  const enriched = services.map((svc) => {
-    const slug = SERVICE_SLUGS[svc.title];
-    return {
-      ...svc,
-      slug,
-      slugLive: slug ? LIVE_SERVICE_PAGES.has(slug) : false,
-    };
-  });
-
   return (
     <>
       <SEO />
@@ -75,10 +44,10 @@ export default function Services({ site }) {
         {/* Services grid */}
         <section className="section">
           <div className="container-x">
-            {enriched.length ? (
+            {services.length ? (
               <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-                {enriched.map((x) => (
-                  <ServiceCard key={x.id} service={x} slug={x.slug} slugLive={x.slugLive} />
+                {services.map((x) => (
+                  <ServiceCard key={x.id} service={x} />
                 ))}
               </div>
             ) : (
@@ -97,8 +66,9 @@ export default function Services({ site }) {
               </h2>
               <p className="leading-relaxed text-muted">
                 Our office is on Nehru Road, Ward 8, Khalpara, Siliguri. We work with
-                individuals, professionals, entrepreneurs and businesses in Siliguri, Darjeeling,
-                Jalpaiguri and across India.
+                individuals, professionals, entrepreneurs and businesses in Khalpara, Sevoke Road,
+                Hill Cart Road, Pradhan Nagar and Matigara, across Darjeeling and Jalpaiguri, and
+                remotely across India.
               </p>
               <div className="mt-6 flex items-start gap-3 rounded-xl border border-line bg-surface p-4">
                 <MapPin size={18} className="mt-0.5 shrink-0 text-brand" />

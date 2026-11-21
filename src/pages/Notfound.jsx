@@ -1,9 +1,12 @@
 // src/pages/Notfound.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 export default function Notfound() {
   return (
+    <>
+    <SEO title="Page not found | LG & Associates" description="The page you are looking for does not exist." noindex />
     <div className="grid min-h-screen place-items-center px-6">
       <div className="flex max-w-md flex-col items-center text-center">
         <span className="text-sm font-medium uppercase tracking-[0.3em] text-muted">
@@ -44,5 +47,6 @@ export default function Notfound() {
         </Link>
       </div>
     </div>
+    </>
   );
 }

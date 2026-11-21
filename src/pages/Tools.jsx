@@ -20,7 +20,7 @@ export default function Tools({ site }) {
       <main>
         <PageHeader
           eyebrow="Free tools"
-          title="Financial calculators"
+          title="Free GST, EMI, SIP and interest calculators"
           description="Estimate interest, loan EMIs, SIP growth and GST in seconds. For advice tailored to your situation, contact our office."
           breadcrumbs={[{ label: "Calculators" }]}
         />

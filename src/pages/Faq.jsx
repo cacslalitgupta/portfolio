@@ -22,7 +22,7 @@ export default function Faq({ site }) {
       <main>
         <PageHeader
           eyebrow="FAQ"
-          title="Frequently asked questions"
+          title="FAQs about CA services in Siliguri"
           description="Common questions about income tax, GST, audit and accounting services from LG & Associates, Siliguri."
           breadcrumbs={[{ label: "FAQ" }]}
         />

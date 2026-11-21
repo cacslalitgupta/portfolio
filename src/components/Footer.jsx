@@ -1,12 +1,15 @@
 // src/components/Footer.jsx
 import { Link } from "react-router-dom";
 import { Mail, MapPin, Phone } from "lucide-react";
+import { SERVICE_PAGES } from "../lib/content";
 
 const NAV = [
   ["Home", "/"],
   ["Services", "/services"],
   ["About", "/about"],
   ["Process", "/process"],
+  ["Resources", "/resources"],
+  ["Calculators", "/tools"],
   ["FAQ", "/faq"],
   ["Contact", "/contact"],
 ];
@@ -22,7 +25,7 @@ export default function Footer({ settings = {} }) {
 
   return (
     <footer className="border-t border-line bg-surface/60">
-      <div className="container-x grid gap-10 py-12 md:grid-cols-3">
+      <div className="container-x grid gap-10 py-12 md:grid-cols-2 lg:grid-cols-4">
         {/* Brand + NAP */}
         <div>
           <div className="font-display text-lg font-bold text-ink">{firm}</div>
@@ -51,6 +54,18 @@ export default function Footer({ settings = {} }) {
             {NAV.map(([label, href]) => (
               <li key={href}>
                 <Link to={href} className="text-muted hover:text-brand">{label}</Link>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        {/* Services */}
+        <nav aria-label="Services">
+          <div className="text-xs font-bold uppercase tracking-[0.18em] text-muted">CA services in Siliguri</div>
+          <ul className="mt-3 grid gap-2 text-sm">
+            {SERVICE_PAGES.map((p) => (
+              <li key={p.slug}>
+                <Link to={`/services/${p.slug}`} className="text-muted hover:text-brand">{p.navTitle}</Link>
               </li>
             ))}
           </ul>

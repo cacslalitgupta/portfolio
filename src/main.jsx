@@ -13,6 +13,9 @@ import Reviews from "./pages/Reviews";
 import Faq from "./pages/Faq";
 import Contact from "./pages/Contact";
 import Tools from "./pages/Tools";
+import ServiceDetail from "./pages/ServiceDetail";
+import Resources from "./pages/Resources";
+import ResourceArticle from "./pages/ResourceArticle";
 import Admin from "./pages/Admin";
 import Notfound from "./pages/Notfound";
 
@@ -101,6 +104,9 @@ function App() {
         <Route path="/" element={<Home site={site} />} />
         <Route path="/about" element={<About site={site} />} />
         <Route path="/services" element={<Services site={site} />} />
+        <Route path="/services/:slug" element={<ServiceDetail site={site} />} />
+        <Route path="/resources" element={<Resources site={site} />} />
+        <Route path="/resources/:slug" element={<ResourceArticle site={site} />} />
         <Route path="/process" element={<Process site={site} />} />
         <Route path="/reviews" element={<Reviews site={site} />} />
         <Route path="/faq" element={<Faq site={site} />} />

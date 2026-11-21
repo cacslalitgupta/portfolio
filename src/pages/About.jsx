@@ -8,7 +8,7 @@ import PageHeader from "../components/PageHeader";
 import SocialSidebar from "../components/SocialSidebar";
 import WhatsAppButton from "../components/WhatsAppButton";
 
-const ICAI_MEMBERSHIP = "CS-11023"; // ← replace
+const ICAI_MEMBERSHIP = "306613"; // ← replace
 
 const expertise = [
   "Income Tax Return Filing & Advisory",
@@ -65,7 +65,7 @@ export default function About({ site }) {
                 A chartered accountancy practice built on discipline and clarity.
               </h2>
               <p className="leading-relaxed text-muted">
-                                CA Lalit Gupta is a Chartered Accountant and the founder of LG & Associates, a
+                CA Lalit Gupta is a Chartered Accountant and the founder of LG & Associates, a
                 chartered accountancy firm based in Siliguri, West Bengal. The practice supports
                 individuals, professionals, entrepreneurs and businesses with income tax, GST,
                 audit, accounting and statutory compliance requirements.

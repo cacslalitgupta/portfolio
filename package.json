@@ -5,8 +5,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite --host",
-    "build": "vite build",
-    "preview": "vite preview"
+    "build": "vite build && node scripts/prerender.mjs",
+    "preview": "vite preview",
+    "build:fast": "vite build"
   },
   "dependencies": {
     "lenis": "^1.3.4",

@@ -33,7 +33,7 @@ export default function Process({ site }) {
       <main>
         <PageHeader
           eyebrow="Process"
-          title="How we work with clients"
+          title="How our CA firm in Siliguri works with clients"
           description="A straightforward engagement model designed to keep your financial work organised, timely and clearly communicated."
           breadcrumbs={[{ label: "Process" }]}
         />

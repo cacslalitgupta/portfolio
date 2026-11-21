@@ -1,5 +1,5 @@
 // src/lib/seo.js
-import { FIRM, SEO_BY_PATH, FALLBACK_SEO, SITE_URL } from "./seoConfig";
+import { FIRM, SEO_BY_PATH, FALLBACK_SEO, SITE_URL, OG_IMAGE, LOGO_URL } from "./seoConfig";
 
 export function upsertMeta(selector, attrs, content) {
   let el = document.head.querySelector(selector);
@@ -19,6 +19,10 @@ export function upsertLink(rel, href) {
     document.head.appendChild(el);
   }
   el.setAttribute("href", href);
+}
+
+export function removeLink(rel) {
+  document.head.querySelector(`link[rel="${rel}"]`)?.remove();
 }
 
 export function upsertJsonLd(id, data) {
@@ -49,18 +53,27 @@ export function updateSeo(site, pathname = window.location.pathname) {
   const normalizedPath = pathname === "/" ? "/" : pathname.replace(/\/+$/, "");
   const routeCfg = SEO_BY_PATH[normalizedPath] || FALLBACK_SEO;
 
-  const title = isAdmin ? "Admin Dashboard | CA Lalit Gupta" : routeCfg.title;
-  const description =
-    normalizedPath === "/" && clean(s.meta_description)
+  // Unknown URLs are 404s: keep them out of the index and never canonicalise them to the home page.
+  const isNotFound = !isAdmin && !SEO_BY_PATH[normalizedPath];
+
+  const title = isAdmin
+    ? "Admin Dashboard | CA Lalit Gupta"
+    : isNotFound
+      ? "Page not found | LG & Associates"
+      : routeCfg.title;
+  const description = isNotFound
+    ? "The page you are looking for does not exist."
+    : normalizedPath === "/" && clean(s.meta_description)
       ? clean(s.meta_description)
       : routeCfg.description;
   const keywords = routeCfg.keywords || FALLBACK_SEO.keywords;
   const canonical = SITE_URL + (isAdmin ? "/admin" : normalizedPath);
-  const image = `${SITE_URL}/og-image.png`;
+  const image = OG_IMAGE;
 
   document.documentElement.lang = "en-IN";
   document.title = title;
-  upsertLink("canonical", canonical);
+  if (isNotFound) removeLink("canonical");
+  else upsertLink("canonical", canonical);
 
   upsertMeta('meta[name="description"]', { name: "description" }, description.slice(0, 160));
   upsertMeta('meta[name="keywords"]', { name: "keywords" }, keywords);
@@ -69,6 +82,8 @@ export function updateSeo(site, pathname = window.location.pathname) {
     { name: "robots" },
     isAdmin
       ? "noindex, nofollow, noarchive"
+      : isNotFound
+      ? "noindex, follow"
       : "index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1"
   );
   upsertMeta('meta[name="author"]', { name: "author" }, "CA Lalit Gupta");
@@ -98,7 +113,7 @@ export function updateSeo(site, pathname = window.location.pathname) {
   upsertMeta('meta[name="twitter:description"]', { name: "twitter:description" }, description);
   upsertMeta('meta[name="twitter:image"]', { name: "twitter:image" }, image);
 
-  if (isAdmin) {
+  if (isAdmin || isNotFound) {
     upsertJsonLd("website-graph", null);
     return;
   }
@@ -133,7 +148,8 @@ export function updateSeo(site, pathname = window.location.pathname) {
     legalName: FIRM.legalName,
     url: SITE_URL,
     image,
-    logo: `${SITE_URL}/favicon.svg`,
+    logo: { "@type": "ImageObject", url: LOGO_URL, width: 512, height: 512 },
+    hasMap: "https://www.google.com/maps/search/?api=1&query=LG+%26+Associates+CA+Lalit+Gupta+Siliguri",
     description: FALLBACK_SEO.description,
     slogan: tagline,
     telephone: clean(s.phone) || FIRM.phone,
@@ -226,8 +242,10 @@ export function updateSeo(site, pathname = window.location.pathname) {
     inLanguage: "en-IN",
   };
 
+  const pageType =
+    routeCfg.type === "contact" ? "ContactPage" : normalizedPath === "/about" ? "AboutPage" : "WebPage";
   const webPageSchema = {
-    "@type": "WebPage",
+    "@type": pageType,
     "@id": `${canonical}#webpage`,
     url: canonical,
     name: title,
@@ -239,17 +257,8 @@ export function updateSeo(site, pathname = window.location.pathname) {
 
   const graph = [firmSchema, personSchema, websiteSchema, webPageSchema];
 
-  if (routeCfg.breadcrumbs?.length) {
-    graph.push({
-      "@type": "BreadcrumbList",
-      itemListElement: routeCfg.breadcrumbs.map((b, idx) => ({
-        "@type": "ListItem",
-        position: idx + 1,
-        name: b.name,
-        item: SITE_URL + b.path,
-      })),
-    });
-  }
+  // BreadcrumbList / Service / BlogPosting are injected per route by <SEO /> (route-graph).
+  // Keeping them out of this graph avoids duplicate BreadcrumbList markup.
 
   // Only attach FAQPage schema on routes where FAQs are visibly rendered on the page
   if ((normalizedPath === "/" || normalizedPath === "/faq") && faqItems.length) {
