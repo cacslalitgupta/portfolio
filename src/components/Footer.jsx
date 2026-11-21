@@ -76,7 +76,7 @@ export default function Footer({ settings = {} }) {
           <iframe
             title={`${firm} office location`}
             src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3564.1626772338577!2d88.424475!3d26.7072495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39e44168eb828ca1%3A0xa444452259f496c5!2sLG%20%26%20Associates%20CA.Lalit%20Gupta!5e0!3m2!1sen!2sin!4v1794478444827!5m2!1sen!2sin"
-            className="h-[180px] w-full"
+            className="h-[220px] w-full"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
           />
