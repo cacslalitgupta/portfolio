@@ -4,6 +4,7 @@ import { api } from "./api";
 import { buildVars } from "./palette";
 import { updateSeo } from "./seo";
 import { DEFAULT_SITE } from "./defaultSite";
+import { withExtraFaqs } from "./faqExtra";
 
 const Ctx = createContext(null);
 export const useSite = () => useContext(Ctx);
@@ -11,7 +12,7 @@ export const useSite = () => useContext(Ctx);
 const systemQuery = () => window.matchMedia("(prefers-color-scheme: dark)");
 
 export function SiteProvider({ children }) {
-  const [site, setSite] = useState(DEFAULT_SITE);
+  const [site, setSite] = useState(() => withExtraFaqs(DEFAULT_SITE));
   const [error, setError] = useState("");
   const [userMode, setUserMode] = useState(() => localStorage.getItem("ca_mode") || "");
   const [systemDark, setSystemDark] = useState(() => systemQuery().matches);
@@ -22,7 +23,7 @@ export function SiteProvider({ children }) {
     return api
       .site()
       .then((data) => {
-        if (data && data.settings) setSite(data);
+        if (data && data.settings) setSite(withExtraFaqs(data));
       })
       .catch((e) => {
         // Keep DEFAULT_SITE rendered instead of breaking public pages on cold API starts

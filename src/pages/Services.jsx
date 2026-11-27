@@ -8,6 +8,7 @@ import PageHeader from "../components/PageHeader";
 import ServiceCard from "../components/ServiceCard";
 import SocialSidebar from "../components/SocialSidebar";
 import WhatsAppButton from "../components/WhatsAppButton";
+import { SERVICE_PAGES, serviceForTitle } from "../lib/content";
 
 const serviceFaqs = [
   {
@@ -19,6 +20,14 @@ const serviceFaqs = [
     a: "Yes. Most of our work is handled online through secure document sharing, so we support clients across West Bengal and India.",
   },
   {
+    q: "Do you help with GST and income tax notices?",
+    a: "Yes. Share the notice and the related returns with our office. We review the issue, prepare the reply within the time allowed and assist with the departmental process where applicable.",
+  },
+  {
+    q: "Can you help me register a private limited company, LLP or partnership firm?",
+    a: "Yes. We assist with choosing the structure, incorporation filings, tax registrations and the annual compliance that follows.",
+  },
+  {
     q: "Do you handle audit engagements?",
     a: "We support statutory audit, tax audit and internal audit engagements within the firm’s professional scope. Contact the office to discuss your specific requirement.",
   },
@@ -27,6 +36,14 @@ const serviceFaqs = [
 export default function Services({ site }) {
   const s = site.settings;
   const { services } = site;
+  // Specialised service pages that are not already represented by a card above
+  const covered = new Set(services.map((x) => serviceForTitle(x.title)?.slug).filter(Boolean));
+  const moreServices = SERVICE_PAGES.filter((p) => !covered.has(p.slug) && p.matchTitles?.length).map((p) => ({
+    id: p.slug,
+    title: p.navTitle,
+    icon: p.icon,
+    short_description: p.metaDescription,
+  }));
 
   return (
     <>
@@ -55,6 +72,23 @@ export default function Services({ site }) {
             )}
           </div>
         </section>
+
+        {/* Specialised services — each links to its own landing page */}
+        {moreServices.length > 0 && (
+          <section className="section border-t border-line bg-surface/60">
+            <div className="container-x">
+              <div className="eyebrow">More services</div>
+              <h2 className="mb-8 mt-2 text-3xl font-bold leading-tight sm:text-4xl">
+                Specialised CA services in Siliguri
+              </h2>
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                {moreServices.map((x) => (
+                  <ServiceCard key={x.id} service={x} />
+                ))}
+              </div>
+            </div>
+          </section>
+        )}
 
         {/* Why Siliguri — location signal for local SEO */}
         <section className="section border-y border-line bg-surface/60">

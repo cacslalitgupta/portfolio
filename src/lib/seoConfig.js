@@ -100,6 +100,14 @@ export const SEO_BY_PATH = {
     keywords: "gst calculator india, emi calculator, sip calculator, ca lalit gupta calculators",
     breadcrumbs: [HOME, crumb("Financial Calculators", "/tools")],
   },
+  "/sitemap": {
+    type: "page",
+    title: "Sitemap | All Pages & CA Services | LG & Associates",
+    description:
+      "Sitemap of LG & Associates, chartered accountants in Siliguri: every service page, guide and key page of the website in one place.",
+    keywords: "sitemap, ca services in siliguri, lg and associates pages",
+    breadcrumbs: [HOME, crumb("Sitemap", "/sitemap")],
+  },
   "/resources": {
     type: "page",
     title: "CA Guides & Resources for Siliguri Businesses | LG & Associates",

@@ -19,6 +19,8 @@ import ResourceArticle from "./pages/ResourceArticle";
 import Admin from "./pages/Admin";
 import Notfound from "./pages/Notfound";
 
+import Sitemap from "./pages/Sitemap";
+
 function Splash({ error, retry }) {
   return (
     <div className="grid min-h-screen place-items-center p-6 text-center">
@@ -112,6 +114,7 @@ function App() {
         <Route path="/faq" element={<Faq site={site} />} />
         <Route path="/contact" element={<Contact site={site} />} />
         <Route path="/tools" element={<Tools site={site} />} />
+        <Route path="/sitemap" element={<Sitemap site={site} />} />
         <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="/admin/:tab" element={<Admin />} />
         <Route path="*" element={<Notfound />} />

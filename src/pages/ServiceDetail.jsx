@@ -17,7 +17,7 @@ export default function ServiceDetail({ site }) {
 
   const s = site.settings;
   const phone = s.phone || "+91-98320-93139";
-  const related = (page.related || []).map(serviceBySlug).filter(Boolean);
+  const related = (page.related || []).map(serviceBySlug).filter(Boolean).slice(0, 6);
 
   return (
     <>

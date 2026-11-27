@@ -13,6 +13,7 @@ import { fileURLToPath } from "node:url";
 import { SEO_BY_PATH, INDEXABLE_PATHS, SITE_URL, FIRM, routeGraph } from "../src/lib/seoConfig.js";
 import { SERVICE_PAGES, RESOURCES, AREAS_SERVED, serviceBySlug, resourceBySlug, serviceForTitle } from "../src/lib/content.js";
 import { DEFAULT_SITE } from "../src/lib/defaultSite.js";
+import { withExtraFaqs } from "../src/lib/faqExtra.js";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const dist = path.join(root, "dist");
@@ -33,10 +34,10 @@ async function loadSite() {
     const data = await res.json();
     if (!data?.settings) throw new Error("no settings in response");
     console.log(`[prerender] live site data loaded from ${API}`);
-    return data;
+    return withExtraFaqs(data);
   } catch (e) {
     console.warn(`[prerender] API unavailable (${e.message}); using defaultSite.js`);
-    return DEFAULT_SITE;
+    return withExtraFaqs(DEFAULT_SITE);
   }
 }
 

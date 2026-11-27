@@ -4,10 +4,12 @@
 // Tone note: informational and factual on purpose (ICAI advertising / solicitation rules).
 // Avoid superlatives ("best", "top", "No.1"), guarantees, fee offers and client testimonials.
 
+import { EXTRA_SERVICE_PAGES, HUB_RELATED } from "./contentExtra.js";
+
 export const AREAS_SERVED =
   "Khalpara, Sevoke Road, Hill Cart Road, Pradhan Nagar, Matigara and the wider Siliguri and North Bengal region";
 
-export const SERVICE_PAGES = [
+const BASE_SERVICE_PAGES = [
   {
     slug: "income-tax-return-filing-siliguri",
     matchTitles: ["Income Tax & ITR", "Income Tax"],
@@ -321,6 +323,15 @@ export const SERVICE_PAGES = [
     ],
     related: ["accounting-and-bookkeeping-siliguri", "gst-registration-and-returns-siliguri", "audit-and-assurance-siliguri"],
   },
+];
+
+// Existing hub pages + new specialised pages. Hub pages list their new sub-pages first in "related".
+export const SERVICE_PAGES = [
+  ...BASE_SERVICE_PAGES.map((p) => ({
+    ...p,
+    related: [...new Set([...(HUB_RELATED[p.slug] || []), ...(p.related || [])])],
+  })),
+  ...EXTRA_SERVICE_PAGES,
 ];
 
 export const RESOURCES = [

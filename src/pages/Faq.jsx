@@ -14,6 +14,15 @@ export default function Faq({ site }) {
   const { faqs } = site;
   const [open, setOpen] = useState(0);
 
+  // Show your own (admin) FAQs + 5 extra ones first, then reveal 10 more per click.
+  const ownCount = faqs.filter((f) => !f.group).length;
+  const FIRST_EXTRA = 5;
+  const STEP = 10;
+  const [clicks, setClicks] = useState(0); // how many times "Load more" was pressed
+  const visible = ownCount + FIRST_EXTRA + clicks * STEP; // stays correct when admin FAQs finish loading
+  const shown = faqs.slice(0, visible);
+  const remaining = faqs.length - shown.length;
+
   return (
     <>
       <SEO />
@@ -43,26 +52,52 @@ export default function Faq({ site }) {
             </div>
             <div className="grid gap-3">
               {faqs.length === 0 && <p className="text-muted">FAQs will appear here soon.</p>}
-              {faqs.map((f, i) => {
+              {shown.map((f, i) => {
                 const isOpen = open === i;
+                const newGroup = f.group && f.group !== shown[i - 1]?.group;
                 return (
-                  <div key={f.id} className={`card overflow-hidden transition ${isOpen ? "border-brand/40" : ""}`}>
-                    <button
-                      className="flex w-full items-center justify-between gap-4 p-5 text-left font-display font-semibold"
-                      aria-expanded={isOpen}
-                      onClick={() => setOpen(isOpen ? -1 : i)}
-                    >
-                      {f.question}
-                      <ChevronDown size={20} className={`shrink-0 text-brand transition ${isOpen ? "rotate-180" : ""}`} />
-                    </button>
-                    <div className={`grid transition-[grid-template-rows] duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
-                      <p className="overflow-hidden px-5 leading-relaxed text-muted">
-                        <span className="block pb-5">{f.answer}</span>
-                      </p>
+                  <div key={f.id} className="grid gap-3">
+                    {newGroup && <div className="eyebrow mt-4">{f.group}</div>}
+                    <div className={`card overflow-hidden transition ${isOpen ? "border-brand/40" : ""}`}>
+                      <button
+                        className="flex w-full items-center justify-between gap-4 p-5 text-left font-display font-semibold"
+                        aria-expanded={isOpen}
+                        onClick={() => setOpen(isOpen ? -1 : i)}
+                      >
+                        {f.question}
+                        <ChevronDown size={20} className={`shrink-0 text-brand transition ${isOpen ? "rotate-180" : ""}`} />
+                      </button>
+                      <div className={`grid transition-[grid-template-rows] duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"}`}>
+                        <p className="overflow-hidden px-5 leading-relaxed text-muted">
+                          <span className="block pb-5">{f.answer}</span>
+                        </p>
+                      </div>
                     </div>
                   </div>
                 );
               })}
+
+              {remaining > 0 && (
+                <button
+                  type="button"
+                  onClick={() => setClicks((c) => c + 1)}
+                  className="btn btn-ghost mt-2 justify-center"
+                >
+                  Load more questions ({remaining} more) <ChevronDown size={16} />
+                </button>
+              )}
+              {remaining <= 0 && faqs.length > ownCount + FIRST_EXTRA && (
+                <button
+                  type="button"
+                  onClick={() => {
+                    setClicks(0);
+                    setOpen(0);
+                  }}
+                  className="btn btn-ghost mt-2 justify-center"
+                >
+                  Show fewer
+                </button>
+              )}
             </div>
           </div>
         </section>
