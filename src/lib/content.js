@@ -323,6 +323,151 @@ const BASE_SERVICE_PAGES = [
     ],
     related: ["accounting-and-bookkeeping-siliguri", "gst-registration-and-returns-siliguri", "audit-and-assurance-siliguri"],
   },
+  // ── NEW: Business Advisory ─────────────────────────────────────
+  {
+    slug: "business-advisory-siliguri",
+    matchTitles: ["Business Advisory", "Advisory"],
+    icon: "TrendingUp",
+    navTitle: "Business Advisory",
+    h1: "Business Advisory Services in Siliguri",
+    metaTitle: "Business Advisory Services in Siliguri | LG & Associates",
+    metaDescription:
+      "Financial and business advisory for Siliguri businesses — budgeting, cash-flow planning, project reports, loan documentation and management reporting by LG & Associates, chartered accountants (CA Lalit Gupta).",
+    keywords:
+      "business advisory siliguri, financial advisory siliguri, project report siliguri, cash flow planning siliguri, ca advisory siliguri",
+    lead:
+      "Most owners have a clear sense of the business but limited time to turn the numbers into decisions. LG & Associates provides practical financial advisory for traders, manufacturers, professionals and growing companies in Siliguri — focused on the questions that affect your margins, cash and funding, not theoretical models.",
+    sections: [
+      {
+        h2: "What business advisory covers",
+        list: [
+          "Preparation of project reports and financial projections for bank loans and MSME schemes",
+          "Budgeting, cash-flow forecasting and working-capital planning",
+          "Review of margins, product or service profitability and break-even",
+          "Business structure review before expansion or restructuring",
+          "Valuation inputs and financial due diligence for internal decisions",
+          "Management reporting — monthly MIS that owners actually use",
+        ],
+      },
+      {
+        h2: "Common situations where advisory helps",
+        paras: [
+          "A trading business preparing for a term loan. A professional firm deciding whether to incorporate. A family business splitting operations between members. A company whose revenue is growing but whose cash position is tightening. In each case, a short, focused review of the numbers often clarifies the decision more than a long report.",
+        ],
+        list: [
+          "Preparing a bankable project report or CMA data for a loan application",
+          "Deciding between expanding the current premises and opening a second location",
+          "Reviewing whether a new product line is actually profitable after overheads",
+          "Putting a simple monthly MIS in place so decisions stop being based on the bank balance alone",
+          "Assessing compliance and financial readiness before a fundraise or partnership",
+        ],
+      },
+      {
+        h2: "How an advisory engagement works",
+        list: [
+          "Short discussion on the specific decision or question you are facing",
+          "Scope agreed in writing — what is reviewed, what is delivered, and by when",
+          "Analysis of the underlying records and assumptions",
+          "A written note or working session covering findings and options",
+          "Follow-up support while you decide and implement",
+        ],
+      },
+      {
+        h2: "What we do not do",
+        paras: [
+          "We do not guarantee loan approvals, funding outcomes or particular financial results. Advisory work is provided within the firm's professional scope and ICAI standards, and every recommendation depends on the facts, records and assumptions you share. Where the question requires specialised input — for example, legal structuring or merchant banking — we tell you openly and, where appropriate, coordinate with other professionals.",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Is business advisory only for large companies?",
+        a: "No. Much of our advisory work is for proprietors, partnerships and small companies where a single decision — a loan, an expansion, a new product line — carries real consequences and the numbers need to be examined properly.",
+      },
+      {
+        q: "Can you prepare a project report for a bank loan?",
+        a: "Yes. We prepare project reports and CMA data for term loans and working-capital facilities, based on your actual records and clearly stated assumptions. The final credit decision rests with the lender.",
+      },
+      {
+        q: "How is advisory different from accounting?",
+        a: "Accounting records what happened. Advisory looks at what to do next — whether to expand, how to price, whether to borrow, and how the decision looks on the numbers. The two often run alongside each other for the same client.",
+      },
+    ],
+    related: ["company-and-llp-registration-siliguri", "accounting-and-bookkeeping-siliguri", "income-tax-return-filing-siliguri"],
+  },
+  // ── NEW: Payroll & Compliance ──────────────────────────────────
+  {
+    slug: "payroll-and-compliance-siliguri",
+    matchTitles: ["Payroll & Compliance", "Payroll"],
+    icon: "Users",
+    navTitle: "Payroll & Compliance",
+    h1: "Payroll Processing & Statutory Compliance in Siliguri",
+    metaTitle: "Payroll & Statutory Compliance in Siliguri | LG & Associates",
+    metaDescription:
+      "Payroll processing, salary structuring, PF, ESI, professional tax and labour-welfare compliance for Siliguri businesses by LG & Associates, chartered accountants (CA Lalit Gupta).",
+    keywords:
+      "payroll services siliguri, pf esi compliance siliguri, salary structuring siliguri, professional tax siliguri, payroll outsourcing siliguri",
+    lead:
+      "Payroll looks routine until a PF or ESI notice arrives, or a salary structure turns out to be tax-inefficient. LG & Associates handles monthly payroll and the associated statutory compliance for businesses in Siliguri — accurate payslips, on-time deposits and clean records at year-end.",
+    sections: [
+      {
+        h2: "Payroll and compliance services",
+        list: [
+          "Monthly payroll processing — salary computation, deductions and payslips",
+          "Salary structuring aligned with current income-tax provisions",
+          "Provident Fund (PF) and ESI registration, monthly returns and reconciliation",
+          "Professional tax registration and returns for West Bengal",
+          "Labour welfare fund and other state-level statutory filings where applicable",
+          "Full-and-final settlement, gratuity workings and leave encashment computations",
+          "Form 16 generation and year-end reconciliation with TDS returns",
+        ],
+      },
+      {
+        h2: "Why payroll compliance matters more than it seems",
+        paras: [
+          "PF and ESI contributions, professional tax and TDS on salaries all have statutory deadlines, and each carries its own interest and penalty regime if missed. A payroll process that produces clean payslips but ignores the deposit calendar creates a quiet liability that surfaces months later, usually as a notice. Running payroll and statutory compliance together, with a clear month-end checklist, avoids most of it.",
+        ],
+      },
+      {
+        h2: "Who this suits",
+        list: [
+          "Businesses with 5–100 employees who handle payroll in-house but want the compliance handled professionally",
+          "Growing companies adding staff and needing salary structuring and PF/ESI set-up",
+          "Professional firms and clinics with a mix of full-time and consultant staff",
+          "Businesses preparing for a statutory audit or due diligence that need clean payroll records",
+        ],
+      },
+      {
+        h2: "What you receive each month",
+        list: [
+          "Payslips for every employee, in a standard format",
+          "A payroll summary register showing gross, deductions and net pay",
+          "Challans for PF, ESI and professional tax, with due dates highlighted",
+          "A reconciliation of TDS on salaries against the projected annual liability",
+          "A short note on any compliance event due in the coming month",
+        ],
+      },
+    ],
+    faqs: [
+      {
+        q: "Can you run payroll for a small team of 5–10 people?",
+        a: "Yes. Payroll engagements are scaled to the number of employees. For smaller teams, the focus is usually on accurate payslips, correct TDS and on-time PF/ESI/professional tax deposits — the same essentials that apply to larger payrolls.",
+      },
+      {
+        q: "Do you handle PF and ESI registration as well?",
+        a: "Yes. We assist with PF and ESI registration for new employers, monthly return filing, reconciliation and replies to notices from the provident fund or ESI authorities.",
+      },
+      {
+        q: "Can payroll be handled remotely?",
+        a: "Yes. Inputs such as attendance, joiners, leavers and salary changes can be shared securely online. Payslips and challans are delivered digitally, and physical documents can be handed over at the Khalpara office if you prefer.",
+      },
+      {
+        q: "Will you also generate Form 16 at year-end?",
+        a: "Yes. Form 16 is generated from the payroll records after year-end, once the TDS on salaries is reconciled with the quarterly TDS returns filed for the year.",
+      },
+    ],
+    related: ["tds-tcs-compliance-siliguri", "accounting-and-bookkeeping-siliguri", "company-and-llp-registration-siliguri"],
+  },
 ];
 
 // Existing hub pages + new specialised pages. Hub pages list their new sub-pages first in "related".

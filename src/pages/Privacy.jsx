@@ -12,7 +12,7 @@ const SECTIONS = [
     id: "introduction",
     title: "1. Introduction",
     paras: [
-      "LG & Associates (\u201cwe\u201d, \u201cus\u201d or \u201cour\u201d) operates the website calalitgupta.in (the \u201cWebsite\u201d). This Privacy Policy explains what personal information we collect, how we use it, whom we share it with, and the choices you have.",
+      "LG & Associates (\u201cwe\u201d, \u201cus\u201d or \u201cour\u201d) operates the website calalitgupta.in (the \u201cWebsite\u201d). This Privacy Policy explains what personal information we collect, how we use it, whom we share it with and the choices you have.",
       "We respect your privacy and are committed to handling your personal information in accordance with applicable Indian law, including the Digital Personal Data Protection Act, 2023, to the extent applicable.",
     ],
   },
@@ -21,9 +21,9 @@ const SECTIONS = [
     title: "2. Information we collect",
     paras: ["We collect only what we need to respond to enquiries and deliver our services. This may include:"],
     list: [
-      "Contact details you provide voluntarily \u2014 name, phone number, email address, and business name.",
+      "Contact details you provide voluntarily \u2014 name, phone number, email address and business name.",
       "Enquiry content \u2014 messages you send us through the contact form, WhatsApp, email or phone.",
-      "Documents you share with us \u2014 PAN, Aadhaar, GST certificates, financial statements, bank statements, and any other records you send us for a professional engagement.",
+      "Documents you share with us \u2014 PAN, Aadhaar, GST certificates, financial statements, bank statements and any other records you send us for a professional engagement.",
       "Technical information \u2014 IP address, browser type, device type, pages visited and referring URLs, collected automatically through analytics when you browse the Website.",
       "Cookies and similar technologies \u2014 small data files used to remember preferences and measure Website usage (see section 6).",
     ],
@@ -34,8 +34,8 @@ const SECTIONS = [
     paras: ["We use your personal information only for purposes connected with our professional work, including:"],
     list: [
       "Responding to enquiries you submit through the Website, phone, email or WhatsApp.",
-      "Delivering chartered accountancy services under an engagement letter \u2014 filing returns, preparing statements, representing you before tax authorities, and related work.",
-      "Complying with legal, regulatory and professional obligations, including know-your-client (KYC), anti-money-laundering, and record-keeping requirements.",
+      "Delivering chartered accountancy services under an engagement letter \u2014 filing returns, preparing statements, representing you before tax authorities and related work.",
+      "Complying with legal, regulatory and professional obligations, including know-your-client (KYC), anti-money-laundering and record-keeping requirements.",
       "Improving the Website and understanding how visitors use it.",
       "Sending occasional updates about the firm\u2019s services or regulatory changes, only where you have asked to receive them.",
     ],
@@ -44,7 +44,7 @@ const SECTIONS = [
     id: "legal-basis",
     title: "4. Legal basis and consent",
     paras: [
-      "We process personal information because it is necessary to respond to your enquiry, to perform a professional engagement, to comply with legal obligations, and where you have given consent. You may withdraw consent at any time by contacting us, though this may affect our ability to serve you.",
+      "We process personal information because it is necessary to respond to your enquiry, to perform a professional engagement, to comply with legal obligations and where you have given consent. You may withdraw consent at any time by contacting us, though this may affect our ability to serve you.",
     ],
   },
   {
@@ -56,7 +56,7 @@ const SECTIONS = [
     list: [
       "With service providers we rely on to operate the Website and office \u2014 for example hosting, email, analytics and secure document-sharing providers.",
       "With government or regulatory authorities where we are required to do so by law, court order, or professional obligation.",
-      "With other professionals (such as advocates, valuers or auditors) only where necessary for your engagement, and with your knowledge.",
+      "With other professionals (such as advocates, valuers or auditors) only where necessary for your engagement and with your knowledge.",
       "With your explicit consent, in any other case.",
     ],
   },
@@ -71,8 +71,8 @@ const SECTIONS = [
     id: "security",
     title: "7. Data security",
     paras: [
-      "We take reasonable technical and organisational measures to protect the personal information you share with us, including access controls, secure transmission, and restricted internal access.",
-      "No method of transmission or storage is completely secure. You share information with us at your own risk, and we encourage you to send sensitive documents through the secure channels we provide rather than ordinary email.",
+      "We take reasonable technical and organisational measures to protect the personal information you share with us, including access controls, secure transmission and restricted internal access.",
+      "No method of transmission or storage is completely secure. You share information with us at your own risk and we encourage you to send sensitive documents through the secure channels we provide rather than ordinary email.",
     ],
   },
   {
