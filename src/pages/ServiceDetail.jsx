@@ -1,6 +1,7 @@
 // src/pages/ServiceDetail.jsx
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ArrowRight, CheckCircle2, MapPin, Phone } from "lucide-react";
+import { ArrowRight, CheckCircle2, ChevronDown, MapPin, Phone } from "lucide-react";
 import SEO from "../components/SEO";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -13,6 +14,8 @@ import { AREAS_SERVED, SERVICE_PAGES, serviceBySlug } from "../lib/content";
 export default function ServiceDetail({ site }) {
   const { slug } = useParams();
   const page = serviceBySlug(slug);
+  const [openFaq, setOpenFaq] = useState(0); // same default as Faq.jsx
+
   if (!page) return <Notfound />;
 
   const s = site.settings;
@@ -55,18 +58,41 @@ export default function ServiceDetail({ site }) {
                 </div>
               ))}
 
+              {/* ── FAQ — exact same accordion as Faq.jsx ─────────────── */}
               <div>
                 <h2 className="text-2xl font-bold leading-tight sm:text-3xl">Common questions</h2>
                 <div className="mt-5 grid gap-3">
-                  {page.faqs.map((f) => (
-                    <details key={f.q} className="card group p-5">
-                      <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display font-semibold marker:content-none">
-                        {f.q}
-                        <span className="shrink-0 text-brand transition group-open:rotate-180">▾</span>
-                      </summary>
-                      <p className="mt-3 leading-relaxed text-muted">{f.a}</p>
-                    </details>
-                  ))}
+                  {page.faqs.map((f, i) => {
+                    const isOpen = openFaq === i;
+                    return (
+                      <div
+                        key={f.q}
+                        className={`card overflow-hidden transition ${isOpen ? "border-brand/40" : ""}`}
+                      >
+                        <button
+                          type="button"
+                          className="flex w-full items-center justify-between gap-4 p-5 text-left font-display font-semibold"
+                          aria-expanded={isOpen}
+                          onClick={() => setOpenFaq(isOpen ? -1 : i)}
+                        >
+                          {f.q}
+                          <ChevronDown
+                            size={20}
+                            className={`shrink-0 text-brand transition ${isOpen ? "rotate-180" : ""}`}
+                          />
+                        </button>
+                        <div
+                          className={`grid transition-[grid-template-rows] duration-300 ${
+                            isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                          }`}
+                        >
+                          <p className="overflow-hidden px-5 leading-relaxed text-muted">
+                            <span className="block pb-5">{f.a}</span>
+                          </p>
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
               </div>
             </div>

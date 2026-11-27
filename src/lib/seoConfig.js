@@ -116,6 +116,26 @@ export const SEO_BY_PATH = {
     keywords: "ca guides siliguri, gst registration guide, itr filing checklist, business structure india",
     breadcrumbs: [HOME, crumb("Resources", "/resources")],
   },
+
+  // ── Legal pages (new) ──────────────────────────────────────────
+  "/terms": {
+    type: "legal",
+    title: "Terms & Conditions | LG & Associates",
+    description:
+      "Terms governing your use of calalitgupta.in and any professional engagement with LG & Associates, Chartered Accountants, Siliguri, West Bengal.",
+    keywords:
+      "terms and conditions, lg and associates terms, ca website terms, engagement terms ca firm siliguri",
+    breadcrumbs: [HOME, crumb("Terms & Conditions", "/terms")],
+  },
+  "/privacy": {
+    type: "legal",
+    title: "Privacy Policy | LG & Associates",
+    description:
+      "How LG & Associates collects, uses, shares and protects the personal information you share through calalitgupta.in and in the course of professional engagements.",
+    keywords:
+      "privacy policy, lg and associates privacy, ca firm privacy policy india, dpdp act 2023",
+    breadcrumbs: [HOME, crumb("Privacy Policy", "/privacy")],
+  },
 };
 
 // Service landing pages
@@ -151,7 +171,7 @@ export const FALLBACK_SEO = SEO_BY_PATH["/"];
 /** All indexable paths, used by the prerender script and the sitemap generator. */
 export const INDEXABLE_PATHS = Object.keys(SEO_BY_PATH);
 
-/** Route-specific JSON-LD nodes (BreadcrumbList + Service / BlogPosting). Pure; safe in Node and browser. */
+/** Route-specific JSON-LD nodes (BreadcrumbList + Service / BlogPosting / WebPage). Pure; safe in Node and browser. */
 export function routeGraph(path, cfg = SEO_BY_PATH[path]) {
   if (!cfg) return [];
   const nodes = [];
@@ -194,6 +214,20 @@ export function routeGraph(path, cfg = SEO_BY_PATH[path]) {
       inLanguage: "en-IN",
       image: OG_IMAGE,
       author: { "@id": `${SITE_URL}/#lalit-gupta` },
+      publisher: { "@id": `${SITE_URL}/#firm` },
+    });
+  }
+  // Legal pages get a lightweight WebPage node so breadcrumbs + page identity are
+  // still emitted to crawlers, without claiming Service/BlogPosting semantics.
+  if (cfg.type === "legal") {
+    nodes.push({
+      "@type": "WebPage",
+      "@id": `${SITE_URL}${path}#webpage`,
+      url: SITE_URL + path,
+      name: cfg.title,
+      description: cfg.description,
+      inLanguage: "en-IN",
+      isPartOf: { "@id": `${SITE_URL}/#website` },
       publisher: { "@id": `${SITE_URL}/#firm` },
     });
   }

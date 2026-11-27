@@ -30,6 +30,12 @@ function Item({ to, children }) {
   );
 }
 
+// Legal pages (not in NAV_LINKS — they live in the footer bottom bar)
+const LEGAL_LINKS = [
+  ["Terms & Conditions", "/terms"],
+  ["Privacy Policy", "/privacy"],
+];
+
 export default function Sitemap({ site }) {
   const s = site.settings;
   const groups = groupServices(SERVICE_PAGES);
@@ -67,6 +73,13 @@ export default function Sitemap({ site }) {
               {RESOURCES.map((r) => (
                 <Item key={r.slug} to={`/resources/${r.slug}`}>{r.title}</Item>
               ))}
+            </Block>
+
+            <Block title="Legal">
+              {LEGAL_LINKS.map(([label, href]) => (
+                <Item key={href} to={href}>{label}</Item>
+              ))}
+              <Item to="/sitemap">Sitemap</Item>
             </Block>
           </div>
         </section>

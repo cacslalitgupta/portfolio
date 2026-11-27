@@ -1,6 +1,7 @@
 // src/pages/Services.jsx
+import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ArrowRight, MapPin, CheckCircle2 } from "lucide-react";
+import { ArrowRight, ChevronDown, MapPin, CheckCircle2 } from "lucide-react";
 import SEO from "../components/SEO";
 import Navbar from "../components/Navbar";
 import Footer from "../components/Footer";
@@ -36,6 +37,8 @@ const serviceFaqs = [
 export default function Services({ site }) {
   const s = site.settings;
   const { services } = site;
+  const [openFaq, setOpenFaq] = useState(0);
+
   // Specialised service pages that are not already represented by a card above
   const covered = new Set(services.map((x) => serviceForTitle(x.title)?.slug).filter(Boolean));
   const moreServices = SERVICE_PAGES.filter((p) => !covered.has(p.slug) && p.matchTitles?.length).map((p) => ({
@@ -149,7 +152,7 @@ export default function Services({ site }) {
           </div>
         </section>
 
-        {/* Service FAQs — helps FAQPage schema on this page */}
+        {/* Service FAQs — same accordion pattern as Faq.jsx */}
         <section className="section">
           <div className="container-x grid gap-8 lg:grid-cols-[.8fr_1.2fr] lg:gap-16">
             <div>
@@ -165,15 +168,37 @@ export default function Services({ site }) {
               </p>
             </div>
             <div className="grid gap-3">
-              {serviceFaqs.map((f) => (
-                <details key={f.q} className="card p-5 group">
-                  <summary className="cursor-pointer list-none font-display font-semibold marker:content-none flex items-center justify-between gap-4">
-                    {f.q}
-                    <span className="shrink-0 text-brand transition group-open:rotate-180">▾</span>
-                  </summary>
-                  <p className="mt-3 leading-relaxed text-muted">{f.a}</p>
-                </details>
-              ))}
+              {serviceFaqs.map((f, i) => {
+                const isOpen = openFaq === i;
+                return (
+                  <div
+                    key={f.q}
+                    className={`card overflow-hidden transition ${isOpen ? "border-brand/40" : ""}`}
+                  >
+                    <button
+                      type="button"
+                      className="flex w-full items-center justify-between gap-4 p-5 text-left font-display font-semibold"
+                      aria-expanded={isOpen}
+                      onClick={() => setOpenFaq(isOpen ? -1 : i)}
+                    >
+                      {f.q}
+                      <ChevronDown
+                        size={20}
+                        className={`shrink-0 text-brand transition ${isOpen ? "rotate-180" : ""}`}
+                      />
+                    </button>
+                    <div
+                      className={`grid transition-[grid-template-rows] duration-300 ${
+                        isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
+                      }`}
+                    >
+                      <p className="overflow-hidden px-5 leading-relaxed text-muted">
+                        <span className="block pb-5">{f.a}</span>
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
         </section>

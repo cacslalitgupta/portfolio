@@ -20,6 +20,8 @@ import Admin from "./pages/Admin";
 import Notfound from "./pages/Notfound";
 
 import Sitemap from "./pages/Sitemap";
+import Terms from "./pages/Terms";
+import Privacy from "./pages/Privacy";
 
 function Splash({ error, retry }) {
   return (
@@ -115,6 +117,8 @@ function App() {
         <Route path="/contact" element={<Contact site={site} />} />
         <Route path="/tools" element={<Tools site={site} />} />
         <Route path="/sitemap" element={<Sitemap site={site} />} />
+        <Route path="/terms" element={<Terms site={site} />} />
+        <Route path="/privacy" element={<Privacy site={site} />} />
         <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
         <Route path="/admin/:tab" element={<Admin />} />
         <Route path="*" element={<Notfound />} />
